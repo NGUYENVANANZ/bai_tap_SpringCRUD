@@ -13,7 +13,7 @@ public class ProductController {
     @GetMapping("/show")
     public String showProduct(Model model){
         model.addAttribute("products", ProductService.products);
-        return "edit";
+        return "index";
 
 
     }
