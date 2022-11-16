@@ -14,7 +14,7 @@
 <body>
 
 <div class="container mt-3">
-    <a type="button" class="btn btn-info" href="/view/create.jsp">Create</a>
+    <a type="button" class="btn btn-info" href="create.jsp">Create</a>
     <table class="table">
         <thead>
         <tr>
