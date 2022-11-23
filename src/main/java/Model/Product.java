@@ -1,7 +1,16 @@
 package Model;
 
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Product {
-    private int id;
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String img;
     private Double price;
@@ -9,18 +18,24 @@ public class Product {
     public Product() {
     }
 
-    public Product(int id, String name, String img, Double price) {
+    public Product(Long id, String name, String img, Double price) {
         this.id = id;
         this.name = name;
         this.img = img;
         this.price = price;
     }
 
-    public int getId() {
+    public Product(String name, String img, Double price) {
+        this.name = name;
+        this.img = img;
+        this.price = price;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -9,12 +9,12 @@ public class ProductService {
     public static List<Product> products = new ArrayList<>();
 
 
-    static {
-        products.add(new Product(1,"Hehe","https://tnmthcm.edu.vn/hinh-anh-body-nu-dep-che-mat/imager_19_457_700.jpg", 10000.0));
-        products.add(new Product(2,"Haha","https://tnmthcm.edu.vn/hinh-anh-body-nu-dep-che-mat/imager_19_457_700.jpg", 10000.0));
-        products.add(new Product(3,"Hihi","https://tnmthcm.edu.vn/hinh-anh-body-nu-dep-che-mat/imager_19_457_700.jpg", 10000.0));
-        products.add(new Product(4,"Kkk","https://tnmthcm.edu.vn/hinh-anh-body-nu-dep-che-mat/imager_19_457_700.jpg", 10000.0));
-    }
+//    static {
+//        products.add(new Product(1,"Hehe","https://tnmthcm.edu.vn/hinh-anh-body-nu-dep-che-mat/imager_19_457_700.jpg", 10000.0));
+//        products.add(new Product(2,"Haha","https://tnmthcm.edu.vn/hinh-anh-body-nu-dep-che-mat/imager_19_457_700.jpg", 10000.0));
+//        products.add(new Product(3,"Hihi","https://tnmthcm.edu.vn/hinh-anh-body-nu-dep-che-mat/imager_19_457_700.jpg", 10000.0));
+//        products.add(new Product(4,"Kkk","https://tnmthcm.edu.vn/hinh-anh-body-nu-dep-che-mat/imager_19_457_700.jpg", 10000.0));
+//    }
     public static void add(Product product){
         products.add(product);
     }

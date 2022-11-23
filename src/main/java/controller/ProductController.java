@@ -1,32 +1,40 @@
 package controller;
 
 import Model.Product;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import repository.ISProduct;
 import service.ProductService;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 public class ProductController {
+
+    @Autowired
+    ISProduct isProduct;
+
     @GetMapping("/show")
     public ModelAndView showProduct() {
         ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject("products", ProductService.products);
+        modelAndView.addObject("products", isProduct.findAll());
         return modelAndView;
 
 
     }
 
     @GetMapping("/edit")
-    public ModelAndView editPage(int id, Model model) {
+    public ModelAndView editPage(Long id) {
         ModelAndView modelAndView = new ModelAndView("edit");
-        model.addAttribute("product", ProductService.findByid(id));
+        Product product = isProduct.findById(id).get();
+        modelAndView.addObject("product", product);
         return modelAndView;
     }
 
@@ -34,22 +42,16 @@ public class ProductController {
     @PostMapping(value = "/edit")
     public String editProduct(@ModelAttribute Product product, @RequestParam MultipartFile imgFile) throws IOException {
         String name = imgFile.getOriginalFilename();
-
-        for (Product p : ProductService.products) {
-            if (p.getId() == product.getId()) {
-                p.setName(product.getName());
-                p.setPrice(product.getPrice());
-                if (!name.equals("")) {
-                    FileCopyUtils.copy(imgFile.getBytes(), new File("C:\\C0722G1\\Modun_4\\Ngay_1\\CRUD\\src\\main\\webapp\\WEB-INF\\img\\" + name));
-                    p.setImg(name);
-                }
-                break;
-            }
+        Product product1 = isProduct.findById(product.getId()).get();
+        product1.setName(product.getName());
+        product1.setPrice(product.getPrice());
+        if (!name.equals("")) {
+            FileCopyUtils.copy(imgFile.getBytes(), new File("C:\\C0722G1\\Modun_4\\Ngay_1\\CRUD\\src\\main\\webapp\\WEB-INF\\img\\" + name));
+            product1.setImg(name);
         }
 
-
+        isProduct.save(product1);
         return "redirect:/show";
-
     }
 
     @GetMapping("/create")
@@ -64,14 +66,13 @@ public class ProductController {
         FileCopyUtils.copy(imgFile.getBytes(), new File("C:\\C0722G1\\Modun_4\\Ngay_1\\CRUD\\src\\main\\webapp\\WEB-INF\\img\\" + name));
 
         product.setImg(name);
-        ProductService.products.add(product);
+        isProduct.save(product);
         return "redirect:/show";
     }
 
     @GetMapping("/delete")
-    public String deleteProduct(int id) {
-        ProductService.products.remove(ProductService.findByid(id));
-
+    public String deleteProduct(Long id) {
+        isProduct.deleteById(id);
         return "redirect:/show";
     }
 
