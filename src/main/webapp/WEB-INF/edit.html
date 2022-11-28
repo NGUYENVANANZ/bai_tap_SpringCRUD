@@ -12,8 +12,7 @@
 <form method="post" action="/edit" enctype="multipart/form-data">
     <input name="id" th:value="${product.id}" type="hidden">
     Name :<input name="name" th:value="${product.name}"><br>
-    <img name="img" th:src="${product.img}" alt="">
-    IMG: <input name="imgFile" type="file"><br>
+    IMG: <input name="imgFile" type="file" th:text= "${product.img}"><br>
     Price: <input name="price" th:value="${product.price}"><br>
     <button type="submit">Sửa</button>
 </form>

@@ -5,14 +5,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.*;
 
 @Entity
 public class Product {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Size(min = 5, max = 20, message = "min = 5 and max 20")
     private String name;
+
     private String img;
+    @NotNull(message = "Nhập vàoooo")
+    @Min(value = 1, message = "Min 1")
+    @Max(value = 99, message = "Max 99")
     private Double price;
 
     public Product() {
