@@ -27,7 +27,7 @@ public class ProductController {
     public ModelAndView showProduct(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "name") String option) {
         ModelAndView modelAndView = new ModelAndView("index");
 
-        modelAndView.addObject("products", isProduct.findAll(PageRequest.of(page, 3)));
+        modelAndView.addObject("products", isProduct.findAll(PageRequest.of(page, 3, Sort.by("price"))));
         modelAndView.addObject("option", option);
         return modelAndView;
 
