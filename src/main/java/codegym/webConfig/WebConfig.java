@@ -1,4 +1,4 @@
-package webConfig;
+package codegym.webConfig;
 
 
 import org.springframework.beans.BeansException;
@@ -26,6 +26,7 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
+import codegym.service.ProductService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -34,10 +35,10 @@ import java.util.Properties;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("controller")
+@ComponentScan("codegym")
 
 @EnableSpringDataWebSupport
-@EnableJpaRepositories("repository")
+@EnableJpaRepositories("codegym.repository")
 @EnableTransactionManagement
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
     private ApplicationContext applicationContext;
@@ -105,7 +106,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[]{"Model"});
+        em.setPackagesToScan(new String[]{"codegym/Model"});
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         em.setJpaProperties(additionalProperties());
@@ -135,4 +136,9 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 
 //   hết Cấu hình để kết nối CSDL
 
+
+    @Bean
+    public ProductService productService(){
+        return new ProductService();
+    }
 }

@@ -28,7 +28,7 @@
 
 
         <tr th:each="sp : ${products}">
-            <td th:f="${sp.id}"></td>
+            <td th:text="${sp.id}"></td>
             <td th:text="${sp.name}"></td>
             <td><img th:src="${sp.img}" height="200" width="250"></td>
             <td th:text="${sp.price}"></td>
@@ -41,8 +41,20 @@
         </tbody>
     </table>
 </div>
-<button th:if="${products.hasPrevious()}"><a th:href="@{/show(page=${products.number}-1,option =${option})}"><<<<<<</a></button>
-<b th:text="${products.number} + 1"></b> / <b th:text="${products.totalPages}"></b>
-<button th:if="${products.hasNext()}"><a th:href="@{/show(page=${products.number}+1,option =${option})}">>>>>>></a></button>
+
+<!--Cách 2-->
+<!--<button th:if="${products.hasPrevious()}"><a th:href="@{/show(page=${products.number}-1,option =${option})}"> < </a></button>-->
+<!--<b th:text="${products.number} + 1"></b> / <b th:text="${products.totalPages}"></b>-->
+<!--<button th:if="${products.hasNext()}"><a th:href="@{/show(page=${products.number}+1,option =${option})}"> > </a></button>-->
+
+<!--Cách 1-->
+<button th:if="${products.hasPrevious()}"><a th:href="@{/show(page=${products.number}-1,option =${option})}"> < </a></button>
+
+<th:block th:each="i: ${#numbers.sequence( 1 , products.totalPages)}">
+    <a type="button" th:text="${i}" th:href="@{/show(page=${i+1} )}" ></a>
+</th:block>
+
+<button th:if="${products.hasNext()}"><a th:href="@{/show(page=${products.number}+1,option =${option})}"> > </a></button>
+
 </body>
 </html>

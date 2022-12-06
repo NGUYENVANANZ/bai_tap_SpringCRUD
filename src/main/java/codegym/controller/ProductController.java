@@ -1,6 +1,6 @@
-package controller;
+package codegym.controller;
 
-import Model.Product;
+import codegym.Model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -11,7 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import repository.ISProduct;
+import codegym.repository.ISProduct;
 
 import javax.validation.Valid;
 import java.io.File;
@@ -24,10 +24,10 @@ public class ProductController {
     ISProduct isProduct;
 
     @GetMapping("/show")
-    public ModelAndView showProduct(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "name") String option) {
+    public ModelAndView showProduct(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "price") String option) {
         ModelAndView modelAndView = new ModelAndView("index");
 
-        modelAndView.addObject("products", isProduct.findAll(PageRequest.of(page, 3, Sort.by("price"))));
+        modelAndView.addObject("products", isProduct.findAll(PageRequest.of(page, 1, Sort.by("price"))));
         modelAndView.addObject("option", option);
         return modelAndView;
 
